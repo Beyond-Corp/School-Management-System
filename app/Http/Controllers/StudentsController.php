@@ -32,30 +32,65 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData=$request->validate([
+        $validateData = $request->validate([
             'name'=> 'required | max: 255',
             'email'=>'required | max: 255',
             'phone'=>'required | max: 255',
             'section'=>'required | max: 255',
             'image'=>'required | image|mimes:jpg,jpeg,png,gif,svg',
         ]);
+
         $image = $request->file('image');
         $destinationPath = 'image/';
         $profileImage=date('YmdHis').".".$image->getClientOriginalExtension();
         $image->move($destinationPath, $profileImage);
         $validateData['image']= $profileImage;
-        
-        $students = Students::create($validateData);
+        $student = Students::create($validateData);
 
         return redirect('/students');
+
+/**
+ * 
+ public function store(Request $request)
+{
+    $validateData = $request->validate([
+        'name' => 'required|max:255',
+        'email' => 'required|max:255',
+        'phone' => 'required|max:255',
+        'section' => 'required|max:255',
+        'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $destinationPath = 'images/';
+        $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        $image->move($destinationPath, $profileImage);
+        $validateData['image'] = $profileImage;
+    }
+
+    Students::create($validateData);
+
+    return redirect()->route('students.index')->with('success', 'Student created successfully.');
+}
+
+ */
+
+
+
         //
     }
+
+
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
+        $student = Students::find($id);
+        return view('show', compact('student'));
         //
     }
 

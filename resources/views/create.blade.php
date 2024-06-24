@@ -2,7 +2,7 @@
 
 @section('content')
 <h3>Add Students</h3>
-<!--<form class="max-w-md mx-auto" method="POST" action="{{ route ('students.store') }}" enctype="multipart/form-data>
+  <!--<form class="max-w-md mx-auto" method="POST" action="" enctype="multipart/form-data>
     <div class="relative z-0 w-full mb-5 group">
         <input type="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
         <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
@@ -40,7 +40,7 @@
 
 
 
-  <form method="POST" action="{{ route ('students.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route ('students.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="name">Name</label>
@@ -68,13 +68,29 @@
 
     <div class="form-group">
         <label for="name">Image</label>
-        <input type="file" class="form-control" name="section"/>
+        <input type="file" class="form-control" name="image"/>
         
     </div>
 
     <button type ="submit" class="btn btn-primary">Add Student </button>
 
   </form>
+  
+
+
+  
+<!-- Getion des erreurs -->
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
   
 
 
